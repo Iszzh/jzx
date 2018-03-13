@@ -1,0 +1,16 @@
+.login-form-button {
+    width: 100%;
+}
+
+.login-window {
+    width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px 5px #eee;
+}
+
+/*.login-window :hover {*/
+    /*box-shadow: 1px 5px 10px 5px #eee;*/
+/*}*/
