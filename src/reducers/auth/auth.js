@@ -1,5 +1,6 @@
 import { login,getCurrentUser } from "@/api/auth/login";
 import { setCookie, Token } from "@/utils/cookie";
+import { message } from 'antd';
 
 const IS_LOGIN = "IS_LOGIN"
 const LOGOUT = "LOGOUT"
@@ -49,7 +50,7 @@ export const getLink = (data) => {
                 })
                 dispatch({ type: IS_LOGIN })
             } else {
-                console.log(msg)
+                message.error(msg)
             }
         })
     }

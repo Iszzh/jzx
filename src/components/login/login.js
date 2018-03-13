@@ -17,7 +17,6 @@ class Login extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('???')
                 this.props.toLogin(values)
                 console.log('Received values of form: ', values);
             } else {
@@ -35,7 +34,7 @@ class Login extends Component {
                         { getFieldDecorator('userName', {
                             rules: [{ required: true, message: '请输入用户名!' }],
                         })(
-                            <Input prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } }/> }
+                            <Input size="large" prefix={ <Icon type="user" style={ { color: 'rgba(0,0,0,.25)' } }/> }
                                    placeholder="请输入用户名"/>
                         ) }
                     </FormItem>
@@ -43,7 +42,7 @@ class Login extends Component {
                         { getFieldDecorator('password', {
                             rules: [{ required: true, message: '请输入你的密码!' }],
                         })(
-                            <Input prefix={ <Icon type="lock" style={ { color: 'rgba(0,0,0,.25)' } }/> } type="password"
+                            <Input size="large" prefix={ <Icon type="lock" style={ { color: 'rgba(0,0,0,.25)' } }/> } type="password"
                                    placeholder="请输入你的密码"/>
                         ) }
                     </FormItem>
@@ -56,7 +55,7 @@ class Login extends Component {
                         ) }
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button size="large" type="primary" htmlType="submit" className="login-form-button">
                             登 录
                         </Button>
                     </FormItem>
