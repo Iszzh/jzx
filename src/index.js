@@ -8,25 +8,30 @@ import rootReducers from './reducers/index'
 import './index.css'
 
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : f => f
-// 将用户信息从session取出
-// const loadState = () => {
-//     const serializedState = sessionStorage.getItem('state');
-//     if (serializedState === null) {
-//         return undefined;
-//     } else {
-//         return JSON.parse(serializedState);
-//     }
-// }
+
 const store = createStore(rootReducers, compose(
     applyMiddleware(thunk),
     reduxDevtools,
 ))
+
+// 将用户信息从session取出
+const loadState = () => {
+    const serializedState = sessionStorage.getItem('state');
+    if (serializedState === null) {
+        return { isAuth: false, links: ['Login'] };
+    } else {
+        return JSON.parse(serializedState);
+    }
+}
+// redux设置session中得到的值
+store.dispatch({ type: 'SET_AUTH', auth: loadState() })
+
 // 保存redux里的用户信息到session
 const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     sessionStorage.setItem('state', serializedState)
 }
-
+// 刷新事件将会保存用户信息
 window.onbeforeunload = (e) => {
     const state = store.getState().auth
     saveState(state)

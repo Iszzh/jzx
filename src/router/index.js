@@ -14,20 +14,31 @@ import { setAuth } from "@/reducers/auth/auth";
 class Routes extends Component {
 
     componentWillMount() {
-        const loadState = () => {
-            const serializedState = sessionStorage.getItem('state');
-            if (serializedState === null) {
-                return { isAuth: false, links: ['Login'] };
-            } else {
-                return JSON.parse(serializedState);
+        // const loadState = () => {
+        //     const serializedState = sessionStorage.getItem('state');
+        //     if (serializedState === null) {
+        //         return { isAuth: false, links: ['Login'] };
+        //     } else {
+        //         return JSON.parse(serializedState);
+        //     }
+        // }
+        // this.props.setAuth(loadState())
+        let links = this.props.links
+        let ll = {}
+        for (let val of links) {
+            let arr = val.split('_')
+            if (arr.length === 1) {
+                ll[arr]= {}
             }
+            console.log(arr)
         }
-        this.props.setAuth(loadState())
+        console.log(ll)
+        console.log(this.props.links)
     }
 
     render() {
         let arr = [{
-            link: 'Index',
+            link: 'WPTSys',
             component: Index
         }, {
             link: 'Login',

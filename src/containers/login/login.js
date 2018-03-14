@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {toLogin, getLink, logOut} from "@/reducers/auth/auth";
 
 @connect(
-    state => ({auth: state.auth.isAuth}),
+    state => ({auth: state.auth}),
     {toLogin, getLink, logOut}
 )
 class Login extends React.Component {
@@ -17,13 +17,13 @@ class Login extends React.Component {
         this.props.logOut()
     }
     componentDidMount(){
-        let style = document.getElementsByClassName('login-windows-from')[0];
-        let ch = document.documentElement.clientHeight;
-        style.style.height = ch+'px'
+        // let style = document.getElementsByClassName('login-windows-from')[0];
+        // let ch = document.documentElement.clientHeight;
+        // style.style.height = ch+'px'
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.auth === true) {
-            this.props.history.push('/index')
+        if (nextProps.auth.isAuth === true) {
+            this.props.history.push('/WPTSys')
         }
         return true
     }
@@ -37,8 +37,11 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className={`login-windows-from`}>
-                <WrappedNormalLoginForm toLogin={(val) => this._toLogin(val)}/>
+            <div>
+                <h1 style={{textAlign:'center',margin:'90px 0',color:'#fff'}}>login</h1>
+                <div className={`login-windows-from`}>
+                    <WrappedNormalLoginForm toLogin={(val) => this._toLogin(val)}/>
+                </div>
             </div>
         )
     }
