@@ -16,11 +16,13 @@ class Login extends React.Component {
     componentWillMount() {
         this.props.logOut()
     }
-    componentDidMount(){
+
+    componentDidMount() {
         // let style = document.getElementsByClassName('login-windows-from')[0];
         // let ch = document.documentElement.clientHeight;
         // style.style.height = ch+'px'
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.auth.isAuth === true) {
             this.props.history.push('/WPTSys')
@@ -37,11 +39,8 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1 style={{textAlign:'center',margin:'90px 0',color:'#fff'}}>login</h1>
-                <div className={`login-windows-from`}>
-                    <WrappedNormalLoginForm toLogin={(val) => this._toLogin(val)}/>
-                </div>
+            <div className={`login-windows-from`}>
+                <WrappedNormalLoginForm toLogin={(val) => this._toLogin(val)}/>
             </div>
         )
     }
