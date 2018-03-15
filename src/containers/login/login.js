@@ -25,7 +25,7 @@ class Login extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.auth.isAuth === true) {
-            this.props.history.push('/WPTSys')
+            this.props.history.push('/WBUSSys/BusMgr/ProjectGroup')
         }
         return true
     }
