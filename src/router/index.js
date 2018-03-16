@@ -4,8 +4,10 @@ import Login from '@/containers/login/login'
 import Register from '@/containers/register/register'
 import { Layout, Menu, Icon } from 'antd';
 import './router.css'
-import { Route, HashRouter } from 'react-router-dom';
+import { Route, HashRouter, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
+
+const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
 
 @connect(
@@ -44,62 +46,72 @@ class Routes extends Component {
     render() {
         let arr = [{
             link: 'WBUSSys/BusMgr/ProjectGroup',
-            component: Index
+            component: Index,
+            name: '项目组',
+            icon: 'user',
         }, {
-            link: 'Login',
-            component: Login
-        }, {
-            link: 'Register',
-            component: Register
+            link: 'WBUSSys/BusMgr/Project',
+            component: Register,
+            name: '注册',
+            icon: 'video-camera',
         }]
         let a = this.props.links
         a.map((m, i) => {
             a[i] = m.replace(/_/g, '/')
         })
         return (
-            <HashRouter>
+
+            <Layout>
+                <Sider trigger={ null } collapsible collapsed={ this.state.collapsed }>
+                    <div className="logo"/>
+                    <Menu theme="dark" mode="inline">
+                        {
+                            a.indexOf('WBUSSys') !== -1
+                                ?
+                                <SubMenu key="sub1" title={ <span><Icon type="user"/>{this.state.collapsed?'':'商务管理'}</span> }>
+                                    { arr.map(m => {
+                                        if (a.indexOf(m.link) !== -1) {
+                                            return (
+                                                <Menu.Item key={ m.link }>
+                                                    <Link to={ `/App/${m.link}` }>
+                                                        <Icon type={ m.icon }/>
+                                                        <span> { m.name } </span>
+                                                    </Link>
+                                                </Menu.Item>
+                                            )
+                                        } else {
+                                            return null
+                                        }
+                                    }) }
+                                </SubMenu>
+                                : null
+                        }
+                    </Menu>
+                </Sider>
                 <Layout>
-                    <Sider trigger={ null } collapsible collapsed={ this.state.collapsed } >
-                        <div className="logo"/>
-                        <Menu theme="dark" mode="inline" defaultSelectedKeys={ ['1'] }>
-                            <Menu.Item key="1">
-                                <Icon type="user"/>
-                                <span>nav 1</span>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="video-camera"/>
-                                <span>nav 2</span>
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="upload"/>
-                                <span>nav 3</span>
-                            </Menu.Item>
-                        </Menu>
-                    </Sider>
-                    <Layout>
-                        <Header style={ { background: '#fff', padding: 0 } }>
-                            <Icon
-                                className="trigger"
-                                type={ this.state.collapsed ? 'menu-unfold' : 'menu-fold' }
-                                onClick={ this.toggle }
-                            />
-                        </Header>
-                        <Content style={ { margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 } }>
+                    <Header style={ { background: '#fff', padding: 0 } }>
+                        <Icon className="trigger"
+                              type={ this.state.collapsed ? 'menu-unfold' : 'menu-fold' }
+                              onClick={ this.toggle }/>
+                    </Header>
+                    <Content style={ { margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 } }>
+                        <Switch>
                             {
                                 arr.map(m => {
                                     return a.indexOf(m.link) !== -1
                                         ?
                                         (
-                                            <Route exact key={ m.link } path={ `/${m.link}` }
+                                            <Route exact key={ m.link } path={ `/App/${m.link}` }
                                                    component={ m.component }></Route>
                                         )
                                         : null
                                 })
                             }
-                        </Content>
-                    </Layout>
+
+                        </Switch>
+                    </Content>
                 </Layout>
-            </HashRouter>
+            </Layout>
         )
     }
 }

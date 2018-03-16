@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import Routes from './router'
+import App from './App'
 import rootReducers from './reducers/index'
 import './index.css'
 
@@ -43,7 +44,7 @@ console.log(store.getState())
 
 ReactDOM.render(
     <Provider store={ store }>
-        <Routes/>
+        <App/>
     </Provider>,
     document.getElementById('root')
 );
